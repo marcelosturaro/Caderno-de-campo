@@ -53,7 +53,7 @@ textarea.out{width:100%;min-height:120px;margin-top:10px;font:13px monospace}
 <p class="gps" id="gps">Buscando localização…</p>
 <div class="g">
 <div class="f"><label for="num">Nº de campo</label><input id="num" required></div>
-<div class="f"><label for="sexo">Sexo</label><select id="sexo"><option value="">—</option><option>M</option><option>F</option><option>Indeterminado</option></select></div>
+<div class="f"><label for="sexo">Sexo</label><select id="sexo"><option value="">—</option><option>Macho</option><option>Fêmea</option><option>Indeterminado</option><option>Juvenil</option><option>Girino</option></select></div>
 <div class="f w"><label for="esp">Espécie</label><input id="esp" required></div>
 <div class="f w"><label for="loc">Local</label><input id="loc"></div>
 <div class="f"><label for="dat">Data</label><input id="dat" type="date"></div>
@@ -131,7 +131,7 @@ function render(){
 }
 function edit(i){
  var r=recs[i];editing=i;
- F.forEach(function(k){$(k).value=r[k]==null?"":r[k]});acc=r.prec||"";
+ F.forEach(function(k){$(k).value=r[k]==null?"":r[k]});acc=r.prec||"";if(r.sexo==="M")$("sexo").value="Macho";if(r.sexo==="F")$("sexo").value="Fêmea";
  $("sv").textContent="Atualizar espécime";$("gps").textContent="Editando "+r.num+".";
  window.scrollTo({top:0,behavior:"smooth"});
 }
