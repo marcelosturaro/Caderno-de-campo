@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Caderno de campo</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f5c5c">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{--bg:#eef1ec;--card:#fafbf8;--ink:#1d2b26;--mut:#5b6b64;--line:#c9d2cb;--acc:#0f5c5c;--accink:#fff;--warn:#a63a3a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121a17;--card:#1b2622;--ink:#e6ede9;--mut:#9aaba3;--line:#2f3f39;--acc:#4fb3a9;--accink:#08201d;--warn:#e07b7b}}
+:root[data-theme="dark"]{--bg:#121a17;--card:#1b2622;--ink:#e6ede9;--mut:#9aaba3;--line:#2f3f39;--acc:#4fb3a9;--accink:#08201d;--warn:#e07b7b}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,"Segoe UI",Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:4px 0 2px}
+.sub{color:var(--mut);margin:0 0 16px}
+form,.list{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:16px}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.f{display:flex;flex-direction:column;gap:3px;min-width:0}
+.w{grid-column:1/-1}
+label{font-size:.9rem;color:var(--mut)}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px;width:100%;min-height:44px}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+textarea{min-height:70px;resize:vertical}
+button{font:inherit;min-height:44px;border-radius:6px;border:1px solid var(--acc);background:var(--acc);color:var(--accink);padding:0 14px;cursor:pointer;font-weight:700}
+button.s{background:transparent;color:var(--acc)}
+button.d{background:transparent;color:var(--warn);border-color:var(--line)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.row>button{flex:1}
+.gps{font-size:.9rem;color:var(--mut);margin:0 0 4px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}
+.top h2{font-size:1.1rem;margin:0}
+.it{border-top:1px solid var(--line);padding:10px 0;display:flex;gap:10px;justify-content:space-between;align-items:center}
+.it b{display:block}
+.it span{color:var(--mut);font-size:.9rem}
+.it .b{display:flex;gap:6px}
+.it button{min-height:40px;padding:0 10px}
+.empty{color:var(--mut);margin:6px 0}
+textarea.out{width:100%;min-height:120px;margin-top:10px;font:13px monospace}
+.msg{margin:10px 0 0;color:var(--mut);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+<h1>Caderno de campo</h1>
+<p class="sub">Um registro por espécime. Os dados ficam salvos neste aparelho até você exportar.</p>
+
+<form id="f" autocomplete="off">
+<p class="gps" id="gps">Buscando localização…</p>
+<div class="g">
+<div class="f"><label for="num">Nº de campo</label><input id="num" required></div>
+<div class="f"><label for="sexo">Sexo</label><select id="sexo"><option value="">—</option><option>M</option><option>F</option><option>Indeterminado</option></select></div>
+<div class="f w"><label for="esp">Espécie</label><input id="esp" required></div>
+<div class="f w"><label for="loc">Local</label><input id="loc"></div>
+<div class="f"><label for="dat">Data</label><input id="dat" type="date"></div>
+<div class="f"><label for="hor">Horário</label><input id="hor" type="time"></div>
+<div class="f"><label for="lat">Latitude</label><input id="lat" inputmode="decimal"></div>
+<div class="f"><label for="lon">Longitude</label><input id="lon" inputmode="decimal"></div>
+<div class="f"><label for="mas">Massa (g)</label><input id="mas" inputmode="decimal"></div>
+<div class="f"><label for="svl">SVL (mm)</label><input id="svl" inputmode="decimal"></div>
+<div class="f"><label for="tl">TL (mm)</label><input id="tl" inputmode="decimal"></div>
+<div class="f w"><label for="tec">Tipo de tecido</label><input id="tec" list="tecs"><datalist id="tecs"><option value="Fígado"><option value="Músculo"><option value="Cauda"><option value="Sangue"><option value="Nenhum"></datalist></div>
+<div class="f w"><label for="col">Coletores</label><input id="col"></div>
+<div class="f w"><label for="obs">Observações</label><textarea id="obs"></textarea></div>
+</div>
+<div class="row">
+<button type="button" class="s" id="relo">Atualizar localização</button>
+<button type="submit" id="sv">Salvar espécime</button>
+</div>
+</form>
+
+<section class="list">
+<div class="top"><h2 id="cnt">Registros</h2><button type="button" id="exp">Exportar CSV</button></div>
+<div id="items"></div>
+<p class="msg" id="msg"></p>
+<textarea class="out" id="out" readonly hidden></textarea>
+</section>
+</main>
+<script>
+(function(){
+var KEY="caderno-campo-v1",recs=[],editing=null,acc="";
+var $=function(i){return document.getElementById(i)};
+var F=["num","esp","sexo","loc","dat","hor","lat","lon","mas","svl","tl","tec","col","obs"];
+var H=["numero_campo","especie","sexo","local","data","horario","latitude","longitude","precisao_m","observacoes","coletores","massa_g","svl_mm","comprimento_cauda_mm","tipo_tecido"];
+function load(){try{var r=localStorage.getItem(KEY);recs=r?JSON.parse(r):[]}catch(e){recs=[]}if(!Array.isArray(recs))recs=[]}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(recs))}catch(e){$("msg").textContent="Não foi possível salvar no aparelho. Exporte o CSV logo."}}
+function p2(n){return String(n).padStart(2,"0")}
+function now(){var d=new Date();$("dat").value=d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate());$("hor").value=p2(d.getHours())+":"+p2(d.getMinutes())}
+function nextNum(){var last=recs.length?String(recs[recs.length-1].num):"";var m=last.match(/^(.*?)(\d+)$/);return m?m[1]+String(+m[2]+1).padStart(m[2].length,"0"):""}
+function gps(){
+ var g=$("gps");
+ if(!navigator.geolocation){g.textContent="Localização indisponível. Digite as coordenadas.";return}
+ g.textContent="Buscando localização…";
+ navigator.geolocation.getCurrentPosition(function(p){
+  $("lat").value=p.coords.latitude.toFixed(6);$("lon").value=p.coords.longitude.toFixed(6);
+  acc=Math.round(p.coords.accuracy);g.textContent="Localização capturada (precisão ~"+acc+" m).";
+ },function(){acc="";g.textContent="Sem acesso à localização. Digite as coordenadas ou permita o acesso ao GPS."},
+ {enableHighAccuracy:true,timeout:15000,maximumAge:0});
+}
+function fresh(){
+ ["num","esp","sexo","mas","svl","tl","tec","obs"].forEach(function(k){$(k).value=""});
+ $("num").value=nextNum();now();gps();editing=null;$("sv").textContent="Salvar espécime";
+}
+function esc(v){v=String(v==null?"":v);return /[",\n\r;]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function csv(){
+ var rows=[H.join(",")];
+ recs.forEach(function(r){rows.push([r.num,r.esp,r.sexo,r.loc,r.dat,r.hor,r.lat,r.lon,r.prec,r.obs,r.col,r.mas,r.svl,r.tl,r.tec].map(esc).join(","))});
+ return "\ufeff"+rows.join("\r\n");
+}
+function render(){
+ $("cnt").textContent="Registros ("+recs.length+")";
+ var box=$("items");box.textContent="";
+ if(!recs.length){var e=document.createElement("p");e.className="empty";e.textContent="Nenhum espécime salvo ainda.";box.appendChild(e);return}
+ recs.slice().reverse().forEach(function(r,ri){
+  var i=recs.length-1-ri,d=document.createElement("div");d.className="it";
+  var t=document.createElement("div"),b=document.createElement("b"),s=document.createElement("span");
+  b.textContent=r.num+" · "+(r.esp||"sem espécie");
+  s.textContent=[r.sexo,r.loc,r.dat,r.hor].filter(Boolean).join(" · ");
+  t.appendChild(b);t.appendChild(s);
+  var bt=document.createElement("div");bt.className="b";
+  var ed=document.createElement("button");ed.type="button";ed.className="s";ed.textContent="Editar";
+  ed.onclick=function(){edit(i)};
+  var de=document.createElement("button");de.type="button";de.className="d";de.textContent="Apagar";
+  de.onclick=function(){if(confirm("Apagar o espécime "+r.num+"?")){recs.splice(i,1);save();render()}};
+  bt.appendChild(ed);bt.appendChild(de);d.appendChild(t);d.appendChild(bt);box.appendChild(d);
+ });
+}
+function edit(i){
+ var r=recs[i];editing=i;
+ F.forEach(function(k){$(k).value=r[k]==null?"":r[k]});acc=r.prec||"";
+ $("sv").textContent="Atualizar espécime";$("gps").textContent="Editando "+r.num+".";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+$("f").addEventListener("submit",function(ev){
+ ev.preventDefault();
+ var r={};F.forEach(function(k){r[k]=$(k).value.trim()});r.prec=acc;
+ if(editing!==null){recs[editing]=r}else{recs.push(r)}
+ save();render();
+ var keepLoc=$("loc").value,keepCol=$("col").value;
+ fresh();$("loc").value=keepLoc;$("col").value=keepCol;
+ $("msg").textContent="Espécime "+r.num+" salvo.";
+});
+$("relo").onclick=gps;
+$("exp").onclick=function(){
+ var out=$("out");
+ if(!recs.length){$("msg").textContent="Salve ao menos um espécime antes de exportar.";return}
+ var data=csv(),d=new Date(),name="campo_"+d.getFullYear()+p2(d.getMonth()+1)+p2(d.getDate())+".csv";
+ function fallback(){out.hidden=false;out.value=data;out.select();$("msg").textContent="Não foi possível baixar. Copie o texto abaixo e cole em um arquivo .csv."}
+ try{var bl=new Blob([data],{type:"text/csv;charset=utf-8"}),u=URL.createObjectURL(bl),an=document.createElement("a");an.href=u;an.download=name;document.body.appendChild(an);an.click();an.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);$("msg").textContent="CSV exportado para a pasta Downloads."}catch(e){fallback()}
+};
+load();render();fresh();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
+})();
+</script>
+</body>
+</html>
