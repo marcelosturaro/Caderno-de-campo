@@ -43,7 +43,7 @@ button.d{background:transparent;color:var(--warn);border-color:var(--line)}
 .empty{color:var(--mut);margin:6px 0}
 textarea.out{width:100%;min-height:120px;margin-top:10px;font:13px monospace}
 .msg{margin:10px 0 0;color:var(--mut);font-size:.9rem}
-.ac{position:relative}.sug{position:absolute;left:0;right:0;top:100%;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:6px;max-height:230px;overflow:auto}.sug button{display:block;width:100%;text-align:left;background:transparent;color:var(--ink);border:0;border-bottom:1px solid var(--line);border-radius:0;font-weight:400;font-style:italic;padding:11px 10px}.sug .nw{padding:10px;color:var(--mut);font-size:.9rem}summary{cursor:pointer;font-weight:700}details.list textarea{min-height:120px}.dw{display:none}.ref{padding-left:1.4em;text-indent:-1.4em;word-break:break-word}.ref a{color:var(--acc)}</style>
+.ac{position:relative}.sug{position:absolute;left:0;right:0;top:100%;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:6px;max-height:230px;overflow:auto}.sug button{display:block;width:100%;text-align:left;background:transparent;color:var(--ink);border:0;border-bottom:1px solid var(--line);border-radius:0;font-weight:400;font-style:italic;padding:11px 10px}.sug .nw{padding:10px;color:var(--mut);font-size:.9rem}summary{cursor:pointer;font-weight:700}details.list textarea{min-height:120px}.dw{display:none}.hint{display:block;font-size:.78rem;color:var(--mut);font-style:italic;margin-top:2px}.ref{padding-left:1.4em;text-indent:-1.4em;word-break:break-word}.ref a{color:var(--acc)}</style>
 </head>
 <body>
 <main>
@@ -54,8 +54,8 @@ textarea.out{width:100%;min-height:120px;margin-top:10px;font:13px monospace}
 <p class="gps" id="gps">Buscando localização…</p>
 <div class="g">
 <div class="f"><label for="num">Nº de campo <small class="dw">recordNumber</small></label><input id="num" required></div>
-<div class="f"><label for="sexo">Sexo <small class="dw">sex · lifeStage</small></label><select id="sexo"><option value="">—</option><option>Macho</option><option>Fêmea</option><option>Indeterminado</option><option>Juvenil</option><option>Girino</option></select></div>
-<div class="f w ac"><label for="esp">Espécie <small class="dw">scientificName</small></label><input id="esp" required autocomplete="off" autocapitalize="off"><div class="sug" id="sug" hidden></div></div>
+<div class="f"><label for="sexo">Sexo <small class="dw">sex · lifeStage</small></label><select id="sexo"><option value="">—</option><option>Macho</option><option>Fêmea</option><option>Indeterminado</option><option>Juvenil</option><option>Girino</option></select><small class="hint">Selecione a opção.</small></div>
+<div class="f w ac"><label for="esp">Espécie <small class="dw">scientificName</small></label><input id="esp" required autocomplete="off" autocapitalize="off"><small class="hint">Preenchimento automático.</small><div class="sug" id="sug" hidden></div></div>
 <div class="f w"><label for="loc">Local <small class="dw">locality</small></label><input id="loc"></div>
 <div class="f"><label for="dat">Data</label><input id="dat" inputmode="numeric" placeholder="AAAA-MM-DD" maxlength="10" autocomplete="off"></div>
 <div class="f"><label for="hor">Horário <small class="dw">eventTime</small></label><input id="hor" type="time"></div>
@@ -64,7 +64,7 @@ textarea.out{width:100%;min-height:120px;margin-top:10px;font:13px monospace}
 <div class="f"><label for="mas">Massa (g) <small class="dw">dynamicProperties</small></label><input id="mas" inputmode="decimal"></div>
 <div class="f"><label for="svl">SVL (mm) <small class="dw">dynamicProperties</small></label><input id="svl" inputmode="decimal"></div>
 <div class="f"><label for="tl">TL (mm) <small class="dw">dynamicProperties</small></label><input id="tl" inputmode="decimal"></div>
-<div class="f w"><label for="tec">Tipo de tecido <small class="dw">preparations</small></label><select id="tec"><option value="">—</option><option>Fígado</option><option>Músculo</option><option>Cauda</option><option>Pé</option><option>Outro</option></select></div>
+<div class="f w"><label for="tec">Tipo de tecido <small class="dw">preparations</small></label><select id="tec"><option value="">—</option><option>Fígado</option><option>Músculo</option><option>Cauda</option><option>Pé</option><option>Outro</option></select><small class="hint">Selecione a opção.</small></div>
 <div class="f w"><label for="col">Coletores <small class="dw">recordedBy</small></label><input id="col" placeholder="Separe os nomes com ;"></div>
 <div class="f w"><label for="obs">Observações <small class="dw">occurrenceRemarks</small></label><textarea id="obs"></textarea></div>
 </div>
