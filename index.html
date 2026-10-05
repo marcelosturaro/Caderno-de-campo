@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Caderno de campo</title>
+<title>Caderno Herpetológico</title>
+<meta name="description" content="Aplicativo para a coleta de dados de espécies de anfíbios e répteis em campo.">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0f5c5c">
 <link rel="icon" href="icon-192.png">
@@ -42,30 +43,30 @@ button.d{background:transparent;color:var(--warn);border-color:var(--line)}
 .empty{color:var(--mut);margin:6px 0}
 textarea.out{width:100%;min-height:120px;margin-top:10px;font:13px monospace}
 .msg{margin:10px 0 0;color:var(--mut);font-size:.9rem}
-.ac{position:relative}.sug{position:absolute;left:0;right:0;top:100%;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:6px;max-height:230px;overflow:auto}.sug button{display:block;width:100%;text-align:left;background:transparent;color:var(--ink);border:0;border-bottom:1px solid var(--line);border-radius:0;font-weight:400;font-style:italic;padding:11px 10px}.sug .nw{padding:10px;color:var(--mut);font-size:.9rem}summary{cursor:pointer;font-weight:700}details.list textarea{min-height:120px}</style>
+.ac{position:relative}.sug{position:absolute;left:0;right:0;top:100%;z-index:5;background:var(--card);border:1px solid var(--line);border-radius:6px;max-height:230px;overflow:auto}.sug button{display:block;width:100%;text-align:left;background:transparent;color:var(--ink);border:0;border-bottom:1px solid var(--line);border-radius:0;font-weight:400;font-style:italic;padding:11px 10px}.sug .nw{padding:10px;color:var(--mut);font-size:.9rem}summary{cursor:pointer;font-weight:700}details.list textarea{min-height:120px}.dw{font-size:.72rem;opacity:.8;margin-left:6px;font-family:ui-monospace,monospace}.ref{padding-left:1.4em;text-indent:-1.4em;word-break:break-word}.ref a{color:var(--acc)}</style>
 </head>
 <body>
 <main>
-<h1>Caderno de campo</h1>
-<p class="sub">Um registro por espécime. Os dados ficam salvos neste aparelho até você exportar.</p>
+<h1>Caderno Herpetológico</h1>
+<p class="sub">Aplicativo para a coleta de dados de espécies de anfíbios e répteis em campo. Inserir um registro por espécime. Os dados ficam salvos neste aparelho até você exportar.</p>
 
 <form id="f" autocomplete="off">
 <p class="gps" id="gps">Buscando localização…</p>
 <div class="g">
-<div class="f"><label for="num">Nº de campo</label><input id="num" required></div>
-<div class="f"><label for="sexo">Sexo</label><select id="sexo"><option value="">—</option><option>Macho</option><option>Fêmea</option><option>Indeterminado</option><option>Juvenil</option><option>Girino</option></select></div>
-<div class="f w ac"><label for="esp">Espécie</label><input id="esp" required autocomplete="off" autocapitalize="off"><div class="sug" id="sug" hidden></div></div>
-<div class="f w"><label for="loc">Local</label><input id="loc"></div>
-<div class="f"><label for="dat">Data</label><input id="dat" type="date"></div>
-<div class="f"><label for="hor">Horário</label><input id="hor" type="time"></div>
-<div class="f"><label for="lat">Latitude</label><input id="lat" inputmode="decimal"></div>
-<div class="f"><label for="lon">Longitude</label><input id="lon" inputmode="decimal"></div>
-<div class="f"><label for="mas">Massa (g)</label><input id="mas" inputmode="decimal"></div>
-<div class="f"><label for="svl">SVL (mm)</label><input id="svl" inputmode="decimal"></div>
-<div class="f"><label for="tl">TL (mm)</label><input id="tl" inputmode="decimal"></div>
-<div class="f w"><label for="tec">Tipo de tecido</label><select id="tec"><option value="">—</option><option>Fígado</option><option>Músculo</option><option>Cauda</option><option>Pé</option><option>Outro</option></select></div>
-<div class="f w"><label for="col">Coletores</label><input id="col"></div>
-<div class="f w"><label for="obs">Observações</label><textarea id="obs"></textarea></div>
+<div class="f"><label for="num">Nº de campo <small class="dw">recordNumber</small></label><input id="num" required></div>
+<div class="f"><label for="sexo">Sexo <small class="dw">sex · lifeStage</small></label><select id="sexo"><option value="">—</option><option>Macho</option><option>Fêmea</option><option>Indeterminado</option><option>Juvenil</option><option>Girino</option></select></div>
+<div class="f w ac"><label for="esp">Espécie <small class="dw">scientificName</small></label><input id="esp" required autocomplete="off" autocapitalize="off"><div class="sug" id="sug" hidden></div></div>
+<div class="f w"><label for="loc">Local <small class="dw">locality</small></label><input id="loc"></div>
+<div class="f"><label for="dat">Data <small class="dw">eventDate</small></label><input id="dat" type="date"></div>
+<div class="f"><label for="hor">Horário <small class="dw">eventTime</small></label><input id="hor" type="time"></div>
+<div class="f"><label for="lat">Latitude <small class="dw">decimalLatitude</small></label><input id="lat" inputmode="decimal"></div>
+<div class="f"><label for="lon">Longitude <small class="dw">decimalLongitude</small></label><input id="lon" inputmode="decimal"></div>
+<div class="f"><label for="mas">Massa (g) <small class="dw">dynamicProperties</small></label><input id="mas" inputmode="decimal"></div>
+<div class="f"><label for="svl">SVL (mm) <small class="dw">dynamicProperties</small></label><input id="svl" inputmode="decimal"></div>
+<div class="f"><label for="tl">TL (mm) <small class="dw">dynamicProperties</small></label><input id="tl" inputmode="decimal"></div>
+<div class="f w"><label for="tec">Tipo de tecido <small class="dw">preparations</small></label><select id="tec"><option value="">—</option><option>Fígado</option><option>Músculo</option><option>Cauda</option><option>Pé</option><option>Outro</option></select></div>
+<div class="f w"><label for="col">Coletores <small class="dw">recordedBy</small></label><input id="col" placeholder="Separe os nomes com ;"></div>
+<div class="f w"><label for="obs">Observações <small class="dw">occurrenceRemarks</small></label><textarea id="obs"></textarea></div>
 </div>
 <div class="row">
 <button type="button" class="s" id="relo">Atualizar localização</button>
@@ -81,14 +82,17 @@ textarea.out{width:100%;min-height:120px;margin-top:10px;font:13px monospace}
 </section>
 <details class="list"><summary>Lista de espécies (<span id="spn">0</span>)</summary>
 <p class="msg">Inclui os anfíbios (1251, Drummond et al., 2026) e os répteis (856, Guedes et al., 2023) do Brasil, conforme as listas da SBH. Espécies novas que você digitar são adicionadas automaticamente ao salvar.</p>
-<p class="msg" id="spmsg"></p></details>
+<p class="msg" id="spmsg"></p>
+<p class="msg"><b>Referências</b></p>
+<p class="msg ref">Drummond, L.O., Santana, D.J., Lima, A.P. &amp; Toledo, L.F. 2026. List of Amphibians of Brazil. <i>Herpetologia Brasileira</i> 15(2), Edição Especial “Lista Brasileira de Anfíbios e Répteis”. Sociedade Brasileira de Herpetologia. DOI: <a href="https://doi.org/10.5281/zenodo.18340087" target="_blank" rel="noopener">10.5281/zenodo.18340087</a></p>
+<p class="msg ref">Guedes, T.B., Entiauspe-Neto, O.M. &amp; Costa, H.C. 2023. Lista de répteis do Brasil: atualização de 2022. <i>Herpetologia Brasileira</i> 12(1): 57–161. Sociedade Brasileira de Herpetologia. DOI: <a href="https://doi.org/10.5281/zenodo.7829013" target="_blank" rel="noopener">10.5281/zenodo.7829013</a></p></details>
 </main>
 <script>
 (function(){
 var KEY="caderno-campo-v1",recs=[],editing=null,acc="";
 var $=function(i){return document.getElementById(i)};
 var F=["num","esp","sexo","loc","dat","hor","lat","lon","mas","svl","tl","tec","col","obs"];
-var H=["numero_campo","especie","sexo","local","data","horario","latitude","longitude","precisao_m","observacoes","coletores","massa_g","svl_mm","comprimento_cauda_mm","tipo_tecido"];
+var H=["occurrenceID","basisOfRecord","occurrenceStatus","recordNumber","scientificName","kingdom","genus","specificEpithet","taxonRank","sex","lifeStage","preparations","recordedBy","eventDate","eventTime","locality","decimalLatitude","decimalLongitude","geodeticDatum","coordinateUncertaintyInMeters","georeferenceSources","occurrenceRemarks","dynamicProperties"];
 function load(){try{var r=localStorage.getItem(KEY);recs=r?JSON.parse(r):[]}catch(e){recs=[]}if(!Array.isArray(recs))recs=[]}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(recs))}catch(e){$("msg").textContent="Não foi possível salvar no aparelho. Exporte o CSV logo."}}
 function p2(n){return String(n).padStart(2,"0")}
@@ -109,10 +113,26 @@ function fresh(){
  $("num").value=nextNum();now();gps();editing=null;$("sv").textContent="Salvar espécime";
 }
 function esc(v){v=String(v==null?"":v);return /[",\n\r;]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function uid(){try{if(window.crypto&&crypto.randomUUID)return crypto.randomUUID()}catch(e){}return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){var r=Math.random()*16|0;return(c==="x"?r:(r&3|8)).toString(16)})}
+function num(v,min,max,dec){v=parseFloat(String(v||"").replace(",","."));if(isNaN(v)||(min!==null&&(v<min||v>max)))return"";return String(+v.toFixed(dec))}
+function tzs(d,h){var p=d.split("-"),q=h.split(":");var o=-new Date(+p[0],+p[1]-1,+p[2],+q[0],+q[1]).getTimezoneOffset(),a=Math.abs(o);return(o<0?"-":"+")+p2(Math.floor(a/60))+":"+p2(a%60)}
+function dwc(r){
+ var nm=(r.esp||"").replace(/\s+/g," ").trim(),w=nm.split(" "),genus="",ep="",rk="";
+ if(w.length>=2&&/^[a-z][a-z-]+$/.test(w[1])){genus=w[0];ep=w[1];rk="species"}else if(w.length===1&&/^[A-Z][a-z]+$/.test(w[0])){genus=w[0];rk="genus"}
+ var sx="",ls="";if(r.sexo==="Macho"||r.sexo==="M")sx="male";else if(r.sexo==="Fêmea"||r.sexo==="F")sx="female";else if(r.sexo==="Juvenil")ls="juvenile";else if(r.sexo==="Girino")ls="tadpole";
+ var tm={"Fígado":"liver","Músculo":"muscle","Cauda":"tail","Pé":"foot","Outro":"other","Sangue":"blood"},tc=r.tec?("tissue ("+(tm[r.tec]||r.tec)+")"):"";
+ var lat=num(r.lat,-90,90,6),lon=num(r.lon,-180,180,6),hasg=lat!==""&&lon!=="";
+ var ev=/^\d{4}-\d{2}-\d{2}$/.test(r.dat||"")?r.dat:"",et=ev&&/^\d{2}:\d{2}$/.test(r.hor||"")?r.hor+":00"+tzs(ev,r.hor):"";
+ var dp={},m=num(r.mas,0,1e6,3),sv=num(r.svl,0,1e5,2),tl=num(r.tl,0,1e5,2);
+ if(m!=="")dp.bodyMass_g=+m;if(sv!=="")dp.SVL_mm=+sv;if(tl!=="")dp.TL_mm=+tl;
+ var rb=(r.col||"").split(/[;|]/).map(function(x){return x.trim()}).filter(Boolean).join(" | ");
+ return[r.id,"PreservedSpecimen","present",r.num,nm,nm?"Animalia":"",genus,ep,rk,sx,ls,tc,rb,ev,et,r.loc,lat,lon,hasg?"WGS84":"",hasg?num(r.prec,0,1e7,0):"",hasg&&r.prec?"GPS":"",r.obs,Object.keys(dp).length?JSON.stringify(dp):""];
+}
 function csv(){
+ var ch=false;recs.forEach(function(r){if(!r.id){r.id=uid();ch=true}});if(ch)save();
  var rows=[H.join(",")];
- recs.forEach(function(r){rows.push([r.num,r.esp,r.sexo,r.loc,r.dat,r.hor,r.lat,r.lon,r.prec,r.obs,r.col,r.mas,r.svl,r.tl,r.tec].map(esc).join(","))});
- return "\ufeff"+rows.join("\r\n");
+ recs.forEach(function(r){rows.push(dwc(r).map(esc).join(","))});
+ return rows.join("\r\n");
 }
 function render(){
  $("cnt").textContent="Registros ("+recs.length+")";
@@ -140,7 +160,7 @@ function edit(i){
 }
 $("f").addEventListener("submit",function(ev){
  ev.preventDefault();
- var r={};F.forEach(function(k){r[k]=$(k).value.trim()});r.prec=acc;
+ var r={};F.forEach(function(k){r[k]=$(k).value.trim()});r.prec=acc;r.id=editing!==null&&recs[editing].id?recs[editing].id:uid();
  if(editing!==null){recs[editing]=r}else{recs.push(r)}addSp(r.esp);
  save();render();
  var keepLoc=$("loc").value,keepCol=$("col").value;
@@ -151,7 +171,7 @@ $("relo").onclick=gps;
 $("exp").onclick=function(){
  var out=$("out");
  if(!recs.length){$("msg").textContent="Salve ao menos um espécime antes de exportar.";return}
- var data=csv(),d=new Date(),name="campo_"+d.getFullYear()+p2(d.getMonth()+1)+p2(d.getDate())+".csv";
+ var data=csv(),d=new Date(),name="campo_"+d.getFullYear()+p2(d.getMonth()+1)+p2(d.getDate())+"_darwincore.csv";
  function fallback(){out.hidden=false;out.value=data;out.select();$("msg").textContent="Não foi possível baixar. Copie o texto abaixo e cole em um arquivo .csv."}
  try{var bl=new Blob([data],{type:"text/csv;charset=utf-8"}),u=URL.createObjectURL(bl),an=document.createElement("a");an.href=u;an.download=name;document.body.appendChild(an);an.click();an.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);$("msg").textContent="CSV exportado para a pasta Downloads."}catch(e){fallback()}
 };
