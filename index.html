@@ -63,7 +63,7 @@ textarea.out{width:100%;min-height:120px;margin-top:10px;font:13px monospace}
 <div class="f"><label for="mas">Massa (g)</label><input id="mas" inputmode="decimal"></div>
 <div class="f"><label for="svl">SVL (mm)</label><input id="svl" inputmode="decimal"></div>
 <div class="f"><label for="tl">TL (mm)</label><input id="tl" inputmode="decimal"></div>
-<div class="f w"><label for="tec">Tipo de tecido</label><input id="tec" list="tecs"><datalist id="tecs"><option value="Fígado"><option value="Músculo"><option value="Cauda"><option value="Sangue"><option value="Nenhum"></datalist></div>
+<div class="f w"><label for="tec">Tipo de tecido</label><select id="tec"><option value="">—</option><option>Fígado</option><option>Músculo</option><option>Cauda</option><option>Pé</option><option>Outro</option></select></div>
 <div class="f w"><label for="col">Coletores</label><input id="col"></div>
 <div class="f w"><label for="obs">Observações</label><textarea id="obs"></textarea></div>
 </div>
@@ -131,7 +131,7 @@ function render(){
 }
 function edit(i){
  var r=recs[i];editing=i;
- F.forEach(function(k){$(k).value=r[k]==null?"":r[k]});acc=r.prec||"";if(r.sexo==="M")$("sexo").value="Macho";if(r.sexo==="F")$("sexo").value="Fêmea";
+ F.forEach(function(k){$(k).value=r[k]==null?"":r[k]});acc=r.prec||"";var st=$("tec");if(r.tec&&st.value!==r.tec){var op=document.createElement("option");op.textContent=r.tec;st.appendChild(op);st.value=r.tec}if(r.sexo==="M")$("sexo").value="Macho";if(r.sexo==="F")$("sexo").value="Fêmea";
  $("sv").textContent="Atualizar espécime";$("gps").textContent="Editando "+r.num+".";
  window.scrollTo({top:0,behavior:"smooth"});
 }
